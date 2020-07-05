@@ -73,7 +73,7 @@ fi
 # if the command is not "install" or "upgrade", or just a single command (no value files is a given in this case), pass the args to the regular helm command
 if [[ $# -eq 1 || ( "$cmd" != "install" && "$cmd" != "upgrade" && "$cmd" != "template") ]]; then
     set +e # disable fail-fast
-    helm "$*"
+    helm3 "$*"
     EXIT_CODE=$?
 
     if [[ ${EXIT_CODE} -ne 0 ]]; then
@@ -171,7 +171,7 @@ while read -r PARAM_STRING; do
 done <<< "${PARAMETERS}"
 
 set +e
-echo -e "${MERGED_TEXT}" | helm "${OPTIONS[@]}" --values -
+echo -e "${MERGED_TEXT}" | helm3 "${OPTIONS[@]}" --values -
 EXIT_CODE=$?
 if [[ ${EXIT_CODE} -ne 0 ]]; then
     echo -e "${RED}[SSM]${NOC} Helm exited with a non 0 code - this is most likely not a problem with the SSM plugin, but a problem with Helm itself." >&2
